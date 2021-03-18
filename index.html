@@ -1,0 +1,58 @@
+<style>
+  
+  body {
+    position: center;
+    filter: blur(100px);
+    background-image: ;
+  }
+
+  .circle {
+    position: fixed;
+    width: 500px;
+    height: 10px;
+    background-color: red;
+  }
+    
+</style>
+
+<body></body>
+
+<script>
+  
+  function createCircle () {
+    const circ = document.createElement('div')
+    circ.className = 'circle'
+    circ.style.left = `${window.innerWidth / 2}px`
+    circ.style.top = `${window.innerHeight / 2}px`
+    console.log(circ)
+    document.body.appendChild(circ)
+    circ.dataset.dx = Math.random() * 4 - 2
+    circ.dataset.dy = Math.random() * 4 - 2
+    circ.update = function () {
+      let dx = parseFloat(circ.dataset.dx)
+      let dy = parseFloat(circ.dataset.dy)
+      let x = parseFloat(circ.style.left)
+      let y = parseFloat(circ.style.top)
+      x += dx
+      if (x <= 0 || x >= window.innerWidth) circ.dataset.dx = -dx
+      y += dy
+      if (y <= 0 || y >= window.innerWidth) circ.dataset.dy = -dy
+      this.style.left = `${x}px`
+      this.style.top = `${y}px`
+    }
+  }
+  
+  for (let i = 0; i < 30; i++) {
+    createCircle()
+  }
+  
+  function animate () {
+    requestAnimationFrame(animate)
+    const circs = document.querySelectorAll('.circle')
+    circs.forEach(c => c.update())
+  }
+  
+  animate()
+
+
+</script>
